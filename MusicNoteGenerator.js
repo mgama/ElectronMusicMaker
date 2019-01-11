@@ -10,6 +10,7 @@
 // 7	2093	2217	2349	2489	2637	2794	2960	3136	3322	3520	3729	3951
 // 8	4186	4435	4699	4978	5274	5588	5920	6272	6645	7040	7459	7902
 
+//A Notes: 10, 22, 34, 46, 58, 70, 82, 94, 108, 120
 class MusicNoteGenerator {
 
 	constructor() {
@@ -39,15 +40,107 @@ class MusicNoteGenerator {
 		this.notesMap.set("C#7", 2217);
 		this.notesMap.set("C#8", 4435);
 
-		
 		return this.notesMap.get(noteName);
 	}
 
+	generateNoteFrequency(noteName) {
+		let cNotesArray = this.createNotesArray(1);
+		let cSNotesArray = this.createNotesArray(2);
+		let dNotesArray = this.createNotesArray(3);
+		let dSNotesArray = this.createNotesArray(4);
+		let eNotesArray = this.createNotesArray(5);
+		let fNotesArray = this.createNotesArray(6);
+		let fSNotesArray = this.createNotesArray(7);
+		let gNotesArray = this.createNotesArray(8);
+		let gSNotesArray = this.createNotesArray(9);
+		let aNotesArray = this.createNotesArray(10);
+		let aSNotesArray = this.createNotesArray(11);
+		let bNotesArray = this.createNotesArray(12);
+
+		//Need to implement way to detect sharp Notes
+		// if noteName.length 
+		let noteLetter = noteName.charAt(0);
+		console.log(noteLetter);
+		let noteNumber = Number(noteName.charAt(1));
+		console.log(noteNumber);
+
+		let referenceFrequency = 440.0;
+		let referenceFrequencyNumber = aNotesArray[5]; 
+		console.log('the referenceFrequencyNumber is ' + referenceFrequencyNumber);
+		//Formula to calculate frequency
+		//https://pages.mtu.edu/~suits/NoteFreqCalcs.html
+		let twelthRootOfTwo = 1.059463094359;
+
+		let numberFromNotesArray = 0;
+		//Find note number from arrays
+		switch(noteLetter) {
+			case 'C':
+				numberFromNotesArray = cNotesArray[noteNumber];
+				break;
+			case 'C#':
+				numberFromNotesArray = cSNotesArray[noteNumber];
+				break;
+			case 'D':
+				numberFromNotesArray = dNotesArray[noteNumber];
+				break;
+			case 'D#':
+				numberFromNotesArray = dSNotesArray[noteNumber];
+				break;
+			case 'E':
+				numberFromNotesArray = eNotesArray[noteNumber];
+				break;
+			case 'F':
+				numberFromNotesArray = fNotesArray[noteNumber];
+				break;
+			case 'F#':
+				numberFromNotesArray = fSNotesArray[noteNumber];
+				break;
+			case 'G':
+				numberFromNotesArray = gNotesArray[noteNumber];
+				break;
+			case 'G#':
+				numberFromNotesArray = gSNotesArray[noteNumber];
+				break;
+			case 'A':
+				numberFromNotesArray = aNotesArray[noteNumber];
+				break;
+			case 'A#':
+				numberFromNotesArray = aSNotesArray[noteNumber];
+				break;
+			case 'B':
+				numberFromNotesArray = bNotesArray[noteNumber];
+				break;
+			default:
+				numberFromNotesArray = aNotesArray[5];
+				break;
+		};
+		console.log('The number from the notesArray is ' + numberFromNotesArray);
+
+		let semiTonesDifference = numberFromNotesArray - referenceFrequencyNumber;
+		console.log('The semiTonesDifference is ' + semiTonesDifference);
+		let frequency = referenceFrequency * Math.pow(twelthRootOfTwo, semiTonesDifference);
+		console.log('The frequency to play is ' + frequency);
+		return frequency;
+	}
+
+	createNotesArray(noteNumber) {
+		let notesArray = [];
+		notesArray[0] = noteNumber;
+		for (let i = 1; i < 15; i++) {
+			noteNumber = noteNumber + 12;
+			notesArray[i] = noteNumber;
+			console.log(i);
+		};
+		console.log('The generated array of Notes is ' + notesArray);
+		return notesArray;
+	}
+
 	playNote(noteName) {
-		var context = new AudioContext();
-        var o = context.createOscillator();
+		let noteFrequency = this.generateNoteFrequency('C0');
+		let context = new AudioContext();
+        let o = context.createOscillator();
         o.type = "sine";
-        var noteFrequency = this.findNoteFrequency(noteName);
+        // let noteFrequency = this.findNoteFrequency(noteName);
         o.frequency.value = noteFrequency;
         o.connect(context.destination);
         o.start();
