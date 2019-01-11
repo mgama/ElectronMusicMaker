@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Electron Music Maker</title>
+    <script src="MusicNoteGenerator.js"></script>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    We are using node <script>document.write(process.versions.node)</script>,
+    Chrome <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
+
+     <button type="button" onclick="playNote('C0')">C0</button> 
+     <!-- <button type="button" onclick="sound2()">E</button>  -->
+
+    <script>
+      function playNote(noteName) {
+        var musicNoteGenerator = new MusicNoteGenerator();
+        musicNoteGenerator.playNote('C0');
+      }
+    </script> -->
+
+        <!-- BEGIN HAPYAK EMBED CODE -->
+    <!-- WARNING! Do not modify any portion of this code -->
+    <div style="position: relative; display: block; max-width: 100%;">
+        <div class="hapyak-player-embed" style="padding-top: 56.25%">
+            <iframe class="hapyak-embed" src="https://www.hapyak.com/player/12803/110/67947b1021000e5e89ef05e2786924a6?context=iframe" allowfullscreen webkitallowfullscreen mozallowfullscreen style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 1px; min-width: 100%; height: 100%; border:0;" data-width="720" data-height="405" allow="autoplay; fullscreen" scrolling="no" ></iframe>
+        </div>
+    </div>
+    <script src="https://d2qrdklrsxowl2.cloudfront.net/js/hapyak.api.js?v=1903"></script>
+    <!-- END HAPYAK EMBED CODE -->
+  </body>
+</html>
