@@ -15,6 +15,18 @@ class MusicNoteGenerator {
 
 	constructor() {
 		this.notesMap = new Map();
+		this.cNotesArray = this.createNotesArray(1);
+		this.cSNotesArray = this.createNotesArray(2);
+		this.dNotesArray = this.createNotesArray(3);
+		this.dSNotesArray = this.createNotesArray(4);
+		this.eNotesArray = this.createNotesArray(5);
+		this.fNotesArray = this.createNotesArray(6);
+		this.fSNotesArray = this.createNotesArray(7);
+		this.gNotesArray = this.createNotesArray(8);
+		this.gSNotesArray = this.createNotesArray(9);
+		this.aNotesArray = this.createNotesArray(10);
+		this.aSNotesArray = this.createNotesArray(11);
+		this.bNotesArray = this.createNotesArray(12);
 	}
 
 	findNoteFrequency(noteName) {
@@ -44,19 +56,6 @@ class MusicNoteGenerator {
 	}
 
 	generateNoteFrequency(noteName) {
-		let cNotesArray = this.createNotesArray(1);
-		let cSNotesArray = this.createNotesArray(2);
-		let dNotesArray = this.createNotesArray(3);
-		let dSNotesArray = this.createNotesArray(4);
-		let eNotesArray = this.createNotesArray(5);
-		let fNotesArray = this.createNotesArray(6);
-		let fSNotesArray = this.createNotesArray(7);
-		let gNotesArray = this.createNotesArray(8);
-		let gSNotesArray = this.createNotesArray(9);
-		let aNotesArray = this.createNotesArray(10);
-		let aSNotesArray = this.createNotesArray(11);
-		let bNotesArray = this.createNotesArray(12);
-
 		//Need to implement way to detect sharp Notes
 		// if noteName.length 
 		let noteLetter = noteName.charAt(0);
@@ -65,7 +64,7 @@ class MusicNoteGenerator {
 		console.log(noteNumber);
 
 		let referenceFrequency = 440.0;
-		let referenceFrequencyNumber = aNotesArray[5]; 
+		let referenceFrequencyNumber = this.aNotesArray[5]; 
 		console.log('the referenceFrequencyNumber is ' + referenceFrequencyNumber);
 		//Formula to calculate frequency
 		//https://pages.mtu.edu/~suits/NoteFreqCalcs.html
@@ -75,43 +74,43 @@ class MusicNoteGenerator {
 		//Find note number from arrays
 		switch(noteLetter) {
 			case 'C':
-				numberFromNotesArray = cNotesArray[noteNumber];
+				numberFromNotesArray = this.cNotesArray[noteNumber];
 				break;
 			case 'C#':
-				numberFromNotesArray = cSNotesArray[noteNumber];
+				numberFromNotesArray = this.cSNotesArray[noteNumber];
 				break;
 			case 'D':
-				numberFromNotesArray = dNotesArray[noteNumber];
+				numberFromNotesArray = this.dNotesArray[noteNumber];
 				break;
 			case 'D#':
-				numberFromNotesArray = dSNotesArray[noteNumber];
+				numberFromNotesArray = this.dSNotesArray[noteNumber];
 				break;
 			case 'E':
-				numberFromNotesArray = eNotesArray[noteNumber];
+				numberFromNotesArray = this.eNotesArray[noteNumber];
 				break;
 			case 'F':
-				numberFromNotesArray = fNotesArray[noteNumber];
+				numberFromNotesArray = this.fNotesArray[noteNumber];
 				break;
 			case 'F#':
-				numberFromNotesArray = fSNotesArray[noteNumber];
+				numberFromNotesArray = this.fSNotesArray[noteNumber];
 				break;
 			case 'G':
-				numberFromNotesArray = gNotesArray[noteNumber];
+				numberFromNotesArray = this.gNotesArray[noteNumber];
 				break;
 			case 'G#':
-				numberFromNotesArray = gSNotesArray[noteNumber];
+				numberFromNotesArray = this.gSNotesArray[noteNumber];
 				break;
 			case 'A':
-				numberFromNotesArray = aNotesArray[noteNumber];
+				numberFromNotesArray = this.aNotesArray[noteNumber];
 				break;
 			case 'A#':
-				numberFromNotesArray = aSNotesArray[noteNumber];
+				numberFromNotesArray = this.aSNotesArray[noteNumber];
 				break;
 			case 'B':
-				numberFromNotesArray = bNotesArray[noteNumber];
+				numberFromNotesArray = this.bNotesArray[noteNumber];
 				break;
 			default:
-				numberFromNotesArray = aNotesArray[5];
+				numberFromNotesArray = this.aNotesArray[5];
 				break;
 		};
 		console.log('The number from the notesArray is ' + numberFromNotesArray);
@@ -136,11 +135,13 @@ class MusicNoteGenerator {
 	}
 
 	playNote(noteName) {
-		let noteFrequency = this.generateNoteFrequency('C0');
+		let noteFrequency = this.generateNoteFrequency(noteName);
+		console.log('the noteFrequency to play is ' + noteFrequency);
 		let context = new AudioContext();
         let o = context.createOscillator();
         o.type = "sine";
         // let noteFrequency = this.findNoteFrequency(noteName);
+        console.log('The noteFrequency added to the oscillator is ' + noteFrequency);
         o.frequency.value = noteFrequency;
         o.connect(context.destination);
         o.start();
